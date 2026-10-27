@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diwali Dhamaka — Live Interactive Preview</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #09090B;
+      color: #FAFAFA;
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+    .font-display { font-family: 'Space Grotesk', sans-serif; }
+    .font-serif { font-family: 'Playfair Display', serif; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #09090B; }
+    ::-webkit-scrollbar-thumb { background: #22222B; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #F5C76A; }
+  </style>
+</head>
+<body class="min-h-screen bg-[#09090B] text-zinc-100 flex flex-col">
+
+  <!-- TOP ANNOUNCEMENT STRIP -->
+  <div class="bg-[#0E0E12] border-b border-white/10 text-xs py-2 px-4 text-center flex items-center justify-between text-zinc-300">
+    <div class="max-w-7xl mx-auto flex items-center gap-2 truncate">
+      <span class="text-[#FF7A18]">🪔</span>
+      <span class="font-medium text-white truncate">DIWALI MEGA SALE — Extra 15% OFF with code <strong class="text-[#F5C76A] underline">DIWALI15</strong></span>
+      <span class="hidden sm:inline-block bg-[#F5C76A]/15 text-[#F5C76A] text-[10px] font-bold px-2 py-0.5 rounded border border-[#F5C76A]/30">FREE DELIVERY &gt; ₹999</span>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-40 bg-[#09090B]/95 backdrop-blur-md border-b border-white/10 py-3 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+      <a href="#/" class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[#1E1A16] to-[#141419] border border-[#F5C76A]/40 flex items-center justify-center text-[#FF7A18] text-lg shadow-sm">
+          🪔
+        </div>
+        <div>
+          <div class="font-display font-extrabold text-lg sm:text-xl text-white tracking-tight flex items-center gap-1">
+            <span>DIWALI</span>
+            <span class="text-[#FF7A18]">DHAMAKA</span>
+          </div>
+          <p class="text-[9px] text-[#F5C76A] font-semibold uppercase tracking-widest hidden sm:block">Festive Shopping Destination</p>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-1 text-sm font-medium">
+        <a href="#/" class="px-3 py-1.5 rounded-lg text-zinc-300 hover:text-white hover:bg-white/5">Home</a>
+        <a href="#/shop" class="px-3 py-1.5 rounded-lg text-zinc-300 hover:text-white hover:bg-white/5">Shop</a>
+        <a href="#/deals" class="px-3 py-1.5 rounded-lg text-[#FF7A18] font-bold hover:bg-white/5">Deals (50% Off)</a>
+        <a href="#/category/gifts-hampers" class="px-3 py-1.5 rounded-lg text-zinc-300 hover:text-white hover:bg-white/5">Gifts &amp; Hampers</a>
+        <a href="#/track-order" class="px-3 py-1.5 rounded-lg text-zinc-300 hover:text-white hover:bg-white/5">Track Order</a>
+      </nav>
+
+      <div class="flex items-center gap-2.5">
+        <a href="#/wishlist" class="relative p-2 rounded-xl text-zinc-300 hover:text-[#FF2D55] hover:bg-white/5" title="Wishlist">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+          <span id="nav-wishlist-badge" class="absolute -top-1 -right-1 bg-[#FF2D55] text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">0</span>
+        </a>
+
+        <a href="#/cart" class="flex items-center gap-2 bg-[#F5C76A] hover:bg-[#FFB547] text-[#09090B] font-bold text-xs sm:text-sm px-3.5 py-2 rounded-xl transition-all shadow-sm">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+          <span>Cart</span>
+          <span id="nav-cart-badge" class="bg-[#09090B] text-[#F5C76A] text-[11px] font-black rounded-full px-1.5 py-0.2">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="app-root" class="flex-1"></main>
+
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 pointer-events-none"></div>
+
+  <footer class="bg-[#09090B] border-t border-white/10 text-zinc-400 text-xs py-12 px-4 sm:px-8 mt-20">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <div>
+        <div class="font-display font-bold text-white text-base mb-2">DIWALI <span class="text-[#FF7A18]">DHAMAKA</span></div>
+        <p class="leading-relaxed">Curated Indian festive mega store uniting heritage Moradabad metalsmiths, Varanasi weavers, and modern smart technology.</p>
+        <div class="mt-3 text-[11px] text-[#F5C76A]">Verified Local Prototype Simulation</div>
+      </div>
+      <div>
+        <h4 class="text-white font-bold uppercase tracking-wider mb-3">Shop Aisles</h4>
+        <ul class="space-y-1.5">
+          <li><a href="#/shop" class="hover:text-white">All Products Catalogue</a></li>
+          <li><a href="#/category/electronics" class="hover:text-white">Electronics &amp; Audio</a></li>
+          <li><a href="#/category/fashion" class="hover:text-white">Festive Ethnic Wear</a></li>
+          <li><a href="#/category/home-decor" class="hover:text-white">Brass Urli &amp; Diyas</a></li>
+          <li><a href="#/deals" class="hover:text-white text-[#FF7A18]">Deals of the Day</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-bold uppercase tracking-wider mb-3">Customer Care</h4>
+        <ul class="space-y-1.5">
+          <li><a href="#/track-order" class="hover:text-white">Track Order</a></li>
+          <li><a href="#/shipping" class="hover:text-white">Shipping &amp; Delivery</a></li>
+          <li><a href="#/returns" class="hover:text-white">7-Day Return Policy</a></li>
+          <li><a href="#/faq" class="hover:text-white">Frequently Asked Questions</a></li>
+          <li><a href="#/contact" class="hover:text-white">Contact Desk</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-bold uppercase tracking-wider mb-3">Company &amp; Trust</h4>
+        <ul class="space-y-1.5">
+          <li><a href="#/about" class="hover:text-white">About the Brand</a></li>
+          <li><a href="#/privacy" class="hover:text-white">Privacy Policy (Draft)</a></li>
+          <li><a href="#/terms" class="hover:text-white">Terms of Service (Draft)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-2 text-zinc-500">
+      <div>&copy; 2026 Diwali Dhamaka. Designed for India's Festival of Lights.</div>
+      <div>Simulated payments &bull; Free express delivery &gt; ₹999</div>
+    </div>
+  </footer>
+
+  <script>
+    const CATEGORIES = [
+      { id: 'cat-1', slug: 'electronics', name: 'Electronics', tagline: 'Gadgets & Smart Devices', image: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=800&q=80', count: 8 },
+      { id: 'cat-2', slug: 'fashion', name: 'Festive Fashion', tagline: 'Ethnic & Contemporary Wear', image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80', count: 6 },
+      { id: 'cat-3', slug: 'home-decor', name: 'Home & Decor', tagline: 'Diyas, Urli & Accents', image: 'https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?auto=format&fit=crop&w=800&q=80', count: 6 },
+      { id: 'cat-4', slug: 'beauty', name: 'Beauty & Glow', tagline: 'Luxury Skincare & Fragrance', image: 'https://images.unsplash.com/photo-1608248597359-00912d99d14a?auto=format&fit=crop&w=800&q=80', count: 4 },
+      { id: 'cat-5', slug: 'gifts-hampers', name: 'Gifts & Hampers', tagline: 'Curated Celebrations', image: 'https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&w=800&q=80', count: 5 },
+      { id: 'cat-6', slug: 'kitchen', name: 'Kitchen & Appliances', tagline: 'Festive Cooking Made Effortless', image: 'https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=800&q=80', count: 4 },
+      { id: 'cat-7', slug: 'accessories', name: 'Accessories', tagline: 'Watches, Bags & Accents', image: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=800&q=80', count: 4 },
+      { id: 'cat-8', slug: 'essentials', name: 'Everyday Essentials', tagline: 'Pooja Needs & Pure Oils', image: 'https://images.unsplash.com/photo-1574894709920-11b28e7367e3?auto=format&fit=crop&w=800&q=80', count: 3 }
+    ];
+
+    const PRODUCTS = [
+      { id: 'prod-e1', slug: 'soundwave-aura-wireless-anc-headphones', name: 'SoundWave Aura Wireless ANC Headphones', brand: 'AuraAudio', category: 'electronics', price: 4999, originalPrice: 9999, rating: 4.8, reviews: 1420, image: 'https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=800&q=80', desc: 'Studio-grade hybrid ANC, 40mm titanium drivers, 65-hour playback for Diwali tracks.', badge: '50% OFF FESTIVE DEAL' },
+      { id: 'prod-e2', slug: 'luxe-pulse-amoled-smartwatch', name: 'Luxe Pulse Pro 1.96" AMOLED Smartwatch', brand: 'Chronos', category: 'electronics', price: 3499, originalPrice: 6999, rating: 4.7, reviews: 940, image: 'https://images.unsplash.com/photo-1579586337278-3befd40fd17a?auto=format&fit=crop&w=800&q=80', desc: '1000-nit curved AMOLED, Bluetooth HD calling, brushed titanium bezel.', badge: 'TOP FESTIVE PICK' },
+      { id: 'prod-e3', slug: 'diya-glow-ambient-smart-speaker', name: 'DiyaGlow 360° Smart Audio Lantern', brand: 'SoundArt', category: 'electronics', price: 2799, originalPrice: 4999, rating: 4.9, reviews: 680, image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80', desc: 'Room-filling 30W sound with relaxing flickering warm amber flame LED.', badge: 'DIWALI SPECIAL' },
+      { id: 'prod-f1', slug: 'banarasi-zari-royal-chanderi-kurta-set', name: 'Royal Zari Embroidered Silk Kurta Set', brand: 'Virasat', category: 'fashion', price: 3899, originalPrice: 6499, rating: 4.9, reviews: 820, image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80', desc: 'Pure handloom Chanderi silk with intricate gold zari embroidery and churidar.', badge: 'HANDCRAFTED HERITAGE' },
+      { id: 'prod-f2', slug: 'anarkali-gota-patti-festive-lehenga-set', name: 'Gota Patti Festive Georgette Anarkali', brand: 'Poshak Rani', category: 'fashion', price: 4499, originalPrice: 7999, rating: 4.8, reviews: 654, image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80', desc: 'Flared royal georgette silhouette with traditional Rajasthani gota border.', badge: '44% SAVINGS' },
+      { id: 'prod-h1', slug: 'royal-peacock-brass-urli-floating-flower-bowl', name: 'Artisan Solid Brass Urli with Diya Holders', brand: 'MandirVatika', category: 'home-decor', price: 1899, originalPrice: 3299, rating: 4.9, reviews: 1890, image: 'https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?auto=format&fit=crop&w=800&q=80', desc: '14-inch solid brass urli bowl hand-cast by Moradabad artisans for floating marigolds.', badge: 'AUTHENTIC BRASS' },
+      { id: 'prod-h2', slug: 'terracotta-handpainted-diya-set-of-21', name: 'Kolkata Earthen Diya Set of 21 (Wax Filled)', brand: 'MittiKala', category: 'home-decor', price: 499, originalPrice: 899, rating: 4.8, reviews: 2410, image: 'https://images.unsplash.com/photo-1574894709920-11b28e7367e3?auto=format&fit=crop&w=800&q=80', desc: 'Clean, smoke-free clay diyas filled with pure organic cow ghee wax (6h burn time).', badge: 'HOT FESTIVE VALUE' },
+      { id: 'prod-g1', slug: 'shahi-mewar-dry-fruit-royal-brass-gift-box', name: 'Shahi Mewar Royal Dry Fruit Gift Trunk (1.2 Kg)', brand: 'Royal Darbar', category: 'gifts-hampers', price: 1699, originalPrice: 2899, rating: 4.9, reviews: 3100, image: 'https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&w=800&q=80', desc: 'Opulent gold foil embossed wooden keepsake trunk filled with 4 premium dry fruits.', badge: 'MOST GIFTED ITEM' },
+      { id: 'prod-g2', slug: 'pure-silver-lakshmi-ganesh-coin-gift-pack', name: '999 Pure Silver 20g Lakshmi-Ganesh Pooja Coin', brand: 'Kundankari', category: 'gifts-hampers', price: 2299, originalPrice: 2999, rating: 4.9, reviews: 1650, image: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=800&q=80', desc: 'Govt BIS-hallmarked 99.9% fine silver coin in airtight capsule with royal silk casing.', badge: 'BIS HALLMARKED' },
+      { id: 'prod-b1', slug: 'kumkumadi-radiance-elixir-festive-glow-set', name: 'Kashmiri Kumkumadi Facial Oil & Gold Ubtan', brand: 'VedAura', category: 'beauty', price: 1499, originalPrice: 2499, rating: 4.8, reviews: 780, image: 'https://images.unsplash.com/photo-1608248597359-00912d99d14a?auto=format&fit=crop&w=800&q=80', desc: 'Authentic saffron beauty elixir infused with 26 Ayurvedic botanicals and 24K gold dust.', badge: '40% OFF FESTIVE' },
+      { id: 'prod-k1', slug: 'aero-crisp-smart-digital-air-fryer-6l', name: 'AeroCrisp Pro 6.5L Digital Air Fryer', brand: 'ChefCraft', category: 'kitchen', price: 5499, originalPrice: 8999, rating: 4.8, reviews: 1100, image: 'https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=800&q=80', desc: 'Fry samosas, gujiyas and snacks with 90% less oil via 360° rapid cyclonic air.', badge: '39% OFF' },
+      { id: 'prod-a1', slug: 'royal-heritage-sunray-gold-chronograph-watch', name: 'Imperial Sunray Gold Dial Chronograph', brand: 'Chronos', category: 'accessories', price: 4299, originalPrice: 8599, rating: 4.9, reviews: 920, image: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=800&q=80', desc: 'Sunburst champagne gold dial, scratch-resistant sapphire crystal, 18K gold PVD bracelet.', badge: '50% FESTIVE DISCOUNT' }
+    ];
+
+    const COUPONS = {
+      'FESTIVE10': { type: 'percentage', value: 10, min: 1499, max: 1000, title: '10% OFF Festive' },
+      'DIWALI15': { type: 'percentage', value: 15, min: 2999, max: 2500, title: '15% OFF Mega Savings' },
+      'GIFT100': { type: 'flat', value: 100, min: 999, title: 'Flat ₹100 Shagun' }
+    };
+
+    let cart = JSON.parse(localStorage.getItem('dd_demo_cart') || '[]');
+    let wishlist = JSON.parse(localStorage.getItem('dd_demo_wishlist') || '[]');
+    let appliedCoupon = localStorage.getItem('dd_demo_coupon') || null;
+    let orders = JSON.parse(localStorage.getItem('dd_demo_orders') || '[]');
+
+    function saveState() {
+      localStorage.setItem('dd_demo_cart', JSON.stringify(cart));
+      localStorage.setItem('dd_demo_wishlist', JSON.stringify(wishlist));
+      if (appliedCoupon) localStorage.setItem('dd_demo_coupon', appliedCoupon);
+      else localStorage.removeItem('dd_demo_coupon');
+      localStorage.setItem('dd_demo_orders', JSON.stringify(orders));
+      updateBadges();
+    }
+
+    function formatINR(val) {
+      return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(Math.round(val || 0));
+    }
+
+    function showToast(msg, type = 'success') {
+      const el = document.createElement('div');
+      el.className = `p-4 mb-2 rounded-xl border shadow-xl flex items-center gap-3 text-xs sm:text-sm font-semibold pointer-events-auto transition-all transform translate-y-2 opacity-0 ${
+        type === 'success' ? 'bg-[#16161C] border-[#F5C76A]/40 text-white' : 'bg-[#1F1114] border-[#FF2D55]/40 text-white'
+      }`;
+      el.innerHTML = `<span>${type === 'success' ? '✨' : '⚠️'}</span><span>${msg}</span>`;
+      document.getElementById('toast-container').appendChild(el);
+      requestAnimationFrame(() => { el.classList.remove('translate-y-2', 'opacity-0'); });
+      setTimeout(() => {
+        el.classList.add('opacity-0');
+        setTimeout(() => el.remove(), 300);
+      }, 3500);
+    }
+
+    function updateBadges() {
+      const count = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('nav-cart-badge').innerText = count;
+      document.getElementById('nav-wishlist-badge').innerText = wishlist.length;
+    }
+
+    window.addToCart = function(productId, qty = 1) {
+      const product = PRODUCTS.find(p => p.id === productId);
+      if (!product) return;
+      const idx = cart.findIndex(i => i.id === productId);
+      if (idx > -1) {
+        cart[idx].qty += qty;
+      } else {
+        cart.push({ id: productId, qty });
+      }
+      saveState();
+      showToast(`Added "${product.name}" to cart!`);
+    };
+
+    window.updateCartQty = function(productId, delta) {
+      const idx = cart.findIndex(i => i.id === productId);
+      if (idx > -1) {
+        cart[idx].qty += delta;
+        if (cart[idx].qty <= 0) cart.splice(idx, 1);
+        saveState();
+        renderRoute();
+      }
+    };
+
+    window.removeFromCart = function(productId) {
+      cart = cart.filter(i => i.id !== productId);
+      saveState();
+      showToast('Item removed from cart');
+      renderRoute();
+    };
+
+    window.toggleWishlist = function(productId) {
+      if (wishlist.includes(productId)) {
+        wishlist = wishlist.filter(x => x !== productId);
+        showToast(`Removed from Wishlist`);
+      } else {
+        wishlist.push(productId);
+        showToast(`Saved to Festive Wishlist!`);
+      }
+      saveState();
+      renderRoute();
+    };
+
+    window.applyCouponCode = function(code) {
+      code = (code || '').trim().toUpperCase();
+      const coup = COUPONS[code];
+      if (!coup) {
+        showToast(`Invalid coupon code "${code}". Try FESTIVE10 or DIWALI15`, 'error');
+        return;
+      }
+      const subtotal = cart.reduce((sum, i) => {
+        const p = PRODUCTS.find(x => x.id === i.id);
+        return sum + (p ? p.price * i.qty : 0);
+      }, 0);
+      if (subtotal < coup.min) {
+        showToast(`Cart must be at least ₹${coup.min} for "${code}"`, 'error');
+        return;
+      }
+      appliedCoupon = code;
+      saveState();
+      showToast(`Festive coupon "${code}" applied!`);
+      renderRoute();
+    };
+
+    window.removeCoupon = function() {
+      appliedCoupon = null;
+      saveState();
+      showToast('Coupon removed');
+      renderRoute();
+    };
+
+    function renderRoute() {
+      updateBadges();
+      const hash = window.location.hash || '#/';
+      const clean = hash.replace(/^#/, '');
+      const [path, queryString] = clean.split('?');
+      const root = document.getElementById('app-root');
+
+      if (path === '/' || path === '') renderHome(root);
+      else if (path === '/shop') renderShop(root);
+      else if (path.startsWith('/category/')) renderCategory(root, path.replace('/category/', ''));
+      else if (path.startsWith('/product/')) renderProductDetail(root, path.replace('/product/', ''));
+      else if (path === '/deals') renderDeals(root);
+      else if (path === '/wishlist') renderWishlist(root);
+      else if (path === '/cart') renderCart(root);
+      else if (path === '/checkout') renderCheckout(root);
+      else if (path === '/order-success') renderOrderSuccess(root, queryString);
+      else if (path === '/track-order') renderTrackOrder(root, queryString);
+      else if (path === '/about') renderAbout(root);
+      else if (path === '/contact') renderContact(root);
+      else if (path === '/faq') renderFaq(root);
+      else if (path === '/shipping') renderShipping(root);
+      else if (path === '/returns') renderReturns(root);
+      else if (path === '/privacy') renderPrivacy(root);
+      else if (path === '/terms') renderTerms(root);
+      else renderNotFound(root);
+      window.scrollTo(0, 0);
+    }
+
+    function renderProductCardHtml(p) {
+      const disc = Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100);
+      const isFav = wishlist.includes(p.id);
+      return `
+        <div class="bg-[#121216] border border-white/10 rounded-2xl overflow-hidden flex flex-col justify-between hover:border-[#F5C76A]/40 transition-all">
+          <div class="relative aspect-square bg-[#1A1A20]">
+            <a href="#/product/${p.slug}">
+              <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover hover:scale-105 transition-transform" />
+            </a>
+            ${disc > 0 ? `<span class="absolute top-2 left-2 bg-[#FF2D55] text-white text-[10px] font-black px-2 py-0.5 rounded shadow">${disc}% OFF</span>` : ''}
+            <button onclick="toggleWishlist('${p.id}')" class="absolute top-2 right-2 p-2 rounded-full bg-black/60 text-white hover:text-[#FF2D55]">
+              ${isFav ? '❤️' : '🤍'}
+            </button>
+          </div>
+          <div class="p-4 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="text-[10px] text-[#F5C76A] font-bold uppercase">${p.brand}</div>
+              <h3 class="font-bold text-sm text-white line-clamp-1 mt-0.5"><a href="#/product/${p.slug}">${p.name}</a></h3>
+              <p class="text-[11px] text-zinc-400 line-clamp-1 mt-1">${p.desc}</p>
+            </div>
+            <div class="pt-3 border-t border-white/5 mt-3">
+              <div class="flex items-baseline gap-2 mb-2">
+                <span class="text-base font-bold text-white">${formatINR(p.price)}</span>
+                <span class="text-xs text-zinc-500 line-through">${formatINR(p.originalPrice)}</span>
+              </div>
+              <button onclick="addToCart('${p.id}')" class="w-full bg-[#1A1A20] hover:bg-[#F5C76A] hover:text-[#09090B] text-zinc-200 font-bold text-xs py-2 rounded-xl border border-white/10 transition-colors">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderHome(root) {
+      root.innerHTML = `
+        <section class="relative bg-gradient-to-b from-[#09090B] via-[#121216] to-[#09090B] py-12 md:py-20 px-4 sm:px-8 border-b border-white/5">
+          <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div class="lg:col-span-7 space-y-6">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1A1A20] border border-[#F5C76A]/40 text-xs font-bold text-[#F5C76A]">
+                <span>🪔</span><span>THE FESTIVAL OF LIGHTS &bull; DIWALI MEGA SALE</span>
+              </div>
+              <h1 class="font-display text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
+                DIWALI <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#F5C76A] via-[#FFB547] to-[#FF7A18]">DHAMAKA</span>
+              </h1>
+              <p class="font-serif italic text-2xl text-zinc-300">Unwrap the Joy. Celebrate the Savings.</p>
+              <p class="text-zinc-400 text-sm sm:text-base max-w-xl">
+                Curated festive selections across studio ANC headphones, pure handloom zari kurta sets, Moradabad brass urli bowls, and royal dry fruit gift trunks.
+              </p>
+              <div class="flex flex-wrap items-center gap-3 pt-2">
+                <a href="#/deals" class="bg-[#F5C76A] hover:bg-[#FFB547] text-[#09090B] font-black px-6 py-3 rounded-xl text-sm transition-all shadow-lg shadow-[#F5C76A]/20">
+                  SHOP THE SALE (UP TO 50% OFF)
+                </a>
+                <a href="#/shop" class="bg-[#1A1A20] hover:bg-[#25252E] text-white font-semibold px-6 py-3 rounded-xl text-sm border border-white/10 transition-all">
+                  EXPLORE ALL AISLES
+                </a>
+              </div>
+            </div>
+            <div class="lg:col-span-5 relative">
+              <div class="rounded-2xl overflow-hidden border border-white/10 bg-[#121216] shadow-2xl relative">
+                <img src="https://images.unsplash.com/photo-1574894709920-11b28e7367e3?auto=format&fit=crop&w=1200&q=80" alt="Diwali diyas" class="w-full h-80 sm:h-96 object-cover" />
+                <div class="absolute bottom-3 left-3 right-3 bg-[#121216]/90 backdrop-blur-md p-3 rounded-xl border border-white/10 flex items-center justify-between">
+                  <div>
+                    <div class="text-[10px] text-[#F5C76A] font-bold uppercase">FESTIVE COUPON</div>
+                    <div class="text-xs font-bold text-white">Use code <span class="text-[#FF7A18]">DIWALI15</span> for 15% OFF</div>
+                  </div>
+                  <a href="#/cart" class="text-xs bg-[#F5C76A] text-[#09090B] font-bold px-3 py-1.5 rounded-lg">Apply</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-4 sm:px-8 py-10">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            ${CATEGORIES.slice(0, 4).map(c => `
+              <a href="#/category/${c.slug}" class="bg-[#121216] border border-white/10 p-4 rounded-2xl hover:border-[#F5C76A]/50 transition-all group flex flex-col justify-between">
+                <div class="aspect-video rounded-xl overflow-hidden mb-3">
+                  <img src="${c.image}" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                </div>
+                <div>
+                  <div class="text-[10px] text-[#FF7A18] font-bold uppercase">${c.tagline}</div>
+                  <div class="font-display font-bold text-sm text-white group-hover:text-[#F5C76A]">${c.name} &rarr;</div>
+                </div>
+              </a>
+            `).join('')}
+          </div>
+        </section>
+
+        <section class="max-w-7xl mx-auto px-4 sm:px-8 py-10 border-t border-white/5">
+          <div class="flex items-center justify-between mb-8">
+            <div>
+              <div class="text-xs font-bold text-[#FF7A18] uppercase tracking-wider">🔥 Limited-Time Exclusives</div>
+              <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-white">Deals Worth Celebrating</h2>
+            </div>
+            <a href="#/deals" class="text-xs font-bold text-[#F5C76A] hover:underline">View All Deals &rarr;</a>
+          </div>
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            ${PRODUCTS.slice(0, 8).map(p => renderProductCardHtml(p)).join('')}
+          </div>
+        </section>
+      `;
+    }
+
+    function renderShop(root) {
+      root.innerHTML = `
+        <div class="max-w-7xl mx-auto px-4 sm:px-8 py-8">
+          <div class="flex items-center justify-between pb-6 border-b border-white/10 mb-6">
+            <div>
+              <h1 class="font-display text-2xl sm:text-3xl font-extrabold text-white">Diwali Festive Showcase</h1>
+              <p class="text-xs text-zinc-400 mt-1">Showing all ${PRODUCTS.length} curated festive items</p>
+            </div>
+            <a href="#/deals" class="text-xs font-bold text-[#FF7A18] bg-[#FF7A18]/10 px-3 py-1.5 rounded-lg border border-[#FF7A18]/30">View 50% Deals &rarr;</a>
+          </div>
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            ${PRODUCTS.map(p => renderProductCardHtml(p)).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCategory(root, slug) {
+      const cat = CATEGORIES.find(c => c.slug === slug);
+      if (!cat) {
+        root.innerHTML = `<div class="py-20 text-center"><h1 class="text-xl font-bold">Category Not Found</h1><a href="#/shop" class="text-[#F5C76A] text-sm underline mt-2 block">Back to Shop</a></div>`;
+        return;
+      }
+      const items = PRODUCTS.filter(p => p.category === slug);
+      root.innerHTML = `
+        <div class="max-w-7xl mx-auto px-4 sm:px-8 py-8">
+          <div class="p-6 rounded-2xl bg-[#141419] border border-white/10 mb-8 flex flex-col sm:flex-row items-center gap-6">
+            <img src="${cat.image}" class="w-32 h-32 rounded-xl object-cover border border-white/10" />
+            <div>
+              <span class="text-xs font-bold text-[#F5C76A] uppercase">${cat.tagline}</span>
+              <h1 class="font-display text-3xl font-black text-white mt-1">${cat.name}</h1>
+              <p class="text-xs text-zinc-300 mt-1 max-w-lg">Discover handpicked ${cat.name.toLowerCase()} curated for auspicious Diwali celebrations.</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            ${items.length > 0 ? items.map(p => renderProductCardHtml(p)).join('') : '<p class="text-zinc-500 text-xs">No items currently in this category.</p>'}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderProductDetail(root, slug) {
+      const p = PRODUCTS.find(x => x.slug === slug);
+      if (!p) {
+        root.innerHTML = `<div class="py-20 text-center"><h1 class="text-xl font-bold">Product Not Found</h1><a href="#/shop" class="text-[#F5C76A] text-sm underline mt-2 block">Back to Shop</a></div>`;
+        return;
+      }
+      const disc = Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100);
+      root.innerHTML = `
+        <div class="max-w-5xl mx-auto px-4 sm:px-8 py-8">
+          <a href="#/shop" class="text-xs text-zinc-400 hover:text-white mb-6 inline-block">&larr; Back to Shop</a>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-[#121216] border border-white/10 p-6 sm:p-8 rounded-3xl">
+            <div class="aspect-square rounded-2xl overflow-hidden bg-[#1A1A20]">
+              <img src="${p.image}" class="w-full h-full object-cover" />
+            </div>
+            <div class="space-y-4">
+              <span class="text-xs font-bold text-[#F5C76A] uppercase tracking-wider">${p.brand}</span>
+              <h1 class="font-display text-2xl sm:text-3xl font-extrabold text-white">${p.name}</h1>
+              <div class="flex items-baseline gap-3 p-3 bg-[#1A1A20] rounded-xl border border-white/5">
+                <span class="text-2xl font-black text-white">${formatINR(p.price)}</span>
+                <span class="text-sm text-zinc-500 line-through">${formatINR(p.originalPrice)}</span>
+                <span class="bg-[#FF2D55] text-white text-xs font-bold px-2 py-0.5 rounded">${disc}% OFF</span>
+              </div>
+              <p class="text-xs sm:text-sm text-zinc-300 leading-relaxed">${p.desc}</p>
+              <div class="pt-4 flex gap-3">
+                <button onclick="addToCart('${p.id}')" class="flex-1 bg-[#F5C76A] hover:bg-[#FFB547] text-[#09090B] font-black py-3 px-6 rounded-xl text-sm transition-all shadow-md">
+                  Add to Festive Cart
+                </button>
+                <button onclick="toggleWishlist('${p.id}')" class="p-3 border border-white/10 rounded-xl hover:bg-white/5">
+                  ${wishlist.includes(p.id) ? '❤️' : '🤍'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderDeals(root) {
+      root.innerHTML = `
+        <div class="max-w-7xl mx-auto px-4 sm:px-8 py-8">
+          <div class="p-8 rounded-3xl bg-gradient-to-r from-[#1E140C] via-[#2A1C0E] to-[#1E140C] border border-[#F5C76A]/40 mb-8 text-center space-y-2">
+            <span class="text-xs font-bold text-[#FF7A18] uppercase">🔥 Mega Clearance</span>
+            <h1 class="font-display text-3xl sm:text-4xl font-black text-white">Deals of the Festival</h1>
+            <p class="text-xs sm:text-sm text-zinc-300 max-w-md mx-auto">Discover top-rated headphones, pure brass urlis, and festive kurtas discounted up to 50%.</p>
+          </div>
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            ${PRODUCTS.map(p => renderProductCardHtml(p)).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderWishlist(root) {
+      const items = PRODUCTS.filter(p => wishlist.includes(p.id));
+      root.innerHTML = `
+        <div class="max-w-7xl mx-auto px-4 sm:px-8 py-8">
+          <h1 class="font-display text-2xl sm:text-3xl font-extrabold text-white mb-6">Saved Festive Wishlist (${items.length})</h1>
+          ${items.length > 0 ? `
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+              ${items.map(p => renderProductCardHtml(p)).join('')}
+            </div>
+          ` : `
+            <div class="p-12 text-center bg-[#121216] border border-white/10 rounded-2xl space-y-3">
+              <div class="text-3xl">❤️</div>
+              <h2 class="text-lg font-bold text-white">Your Wishlist is Empty</h2>
+              <p class="text-xs text-zinc-400">Save items by clicking the heart button on any product!</p>
+              <a href="#/shop" class="inline-block bg-[#F5C76A] text-[#09090B] font-bold text-xs px-5 py-2.5 rounded-xl">Explore Diwali Store</a>
+            </div>
+          `}
+        </div>
+      `;
+    }
+
+    function renderCart(root) {
+      const cartItems = cart.map(i => ({ ...i, product: PRODUCTS.find(p => p.id === i.id) })).filter(i => Boolean(i.product));
+      const subtotal = cartItems.reduce((sum, i) => sum + i.product.price * i.qty, 0);
+      let discount = 0;
+      if (appliedCoupon && COUPONS[appliedCoupon]) {
+        const c = COUPONS[appliedCoupon];
+        if (subtotal >= c.min) {
+          discount = c.type === 'percentage' ? Math.min((subtotal * c.value) / 100, c.max || 9999) : c.value;
+        }
+      }
+      const shipping = subtotal >= 999 || subtotal === 0 ? 0 : 99;
+      const total = Math.max(0, subtotal - discount + shipping);
+
+      root.innerHTML = `
+        <div class="max-w-5xl mx-auto px-4 sm:px-8 py-8">
+          <h1 class="font-display text-2xl sm:text-3xl font-extrabold text-white mb-6">Shopping Cart (${cartItems.length} items)</h1>
+          ${cartItems.length > 0 ? `
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              <div class="lg:col-span-7 space-y-3">
+                ${cartItems.map(i => `
+                  <div class="p-4 rounded-xl bg-[#121216] border border-white/10 flex items-center justify-between gap-4">
+                    <img src="${i.product.image}" class="w-16 h-16 rounded-lg object-cover" />
+                    <div class="flex-1">
+                      <div class="text-xs font-bold text-white">${i.product.name}</div>
+                      <div class="text-xs text-zinc-400">${formatINR(i.product.price)} &times; ${i.qty}</div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <button onclick="updateCartQty('${i.id}', -1)" class="w-6 h-6 bg-[#1A1A20] rounded text-zinc-300">-</button>
+                      <span class="text-xs font-bold">${i.qty}</span>
+                      <button onclick="updateCartQty('${i.id}', 1)" class="w-6 h-6 bg-[#1A1A20] rounded text-zinc-300">+</button>
+                    </div>
+                    <div class="font-bold text-sm">${formatINR(i.product.price * i.qty)}</div>
+                    <button onclick="removeFromCart('${i.id}')" class="text-zinc-500 hover:text-red-500 text-xs">✕</button>
+                  </div>
+                `).join('')}
+              </div>
+
+              <div class="lg:col-span-5 space-y-4">
+                <div class="p-5 rounded-2xl bg-[#141419] border border-white/10 space-y-3">
+                  <h2 class="font-bold text-white text-sm">Festive Order Summary</h2>
+                  <div class="space-y-1.5 text-xs text-zinc-300">
+                    <div class="flex justify-between"><span>Subtotal:</span><span class="text-white font-bold">${formatINR(subtotal)}</span></div>
+                    ${discount > 0 ? `<div class="flex justify-between text-[#F5C76A]"><span>Coupon (${appliedCoupon}):</span><span>- ${formatINR(discount)}</span></div>` : ''}
+                    <div class="flex justify-between"><span>Shipping:</span><span class="text-white font-bold">${shipping === 0 ? '<span class="text-emerald-400">FREE</span>' : formatINR(shipping)}</span></div>
+                    <div class="pt-2 border-t border-white/10 flex justify-between font-black text-sm text-white">
+                      <span>Grand Total:</span><span class="text-[#F5C76A] font-display text-base">${formatINR(total)}</span>
+                    </div>
+                  </div>
+                  <a href="#/checkout" class="block w-full text-center bg-[#F5C76A] hover:bg-[#FFB547] text-[#09090B] font-black text-xs py-3 rounded-xl transition-all">
+                    PROCEED TO CHECKOUT
+                  </a>
+                </div>
+
+                <div class="p-4 rounded-xl bg-[#121216] border border-white/10 space-y-2">
+                  <div class="text-xs font-bold text-white uppercase">Apply Promo Coupon</div>
+                  ${appliedCoupon ? `
+                    <div class="flex items-center justify-between bg-[#F5C76A]/10 border border-[#F5C76A]/30 p-2 rounded-lg text-xs">
+                      <span class="font-bold text-[#F5C76A]">Code "${appliedCoupon}" Applied</span>
+                      <button onclick="removeCoupon()" class="text-zinc-400 hover:text-white">✕</button>
+                    </div>
+                  ` : `
+                    <div class="flex gap-2">
+                      <input id="coupon-field" type="text" placeholder="e.g. FESTIVE10" class="flex-1 bg-[#1A1A20] border border-white/10 text-white px-3 py-2 text-xs rounded-lg uppercase" />
+                      <button onclick="applyCouponCode(document.getElementById('coupon-field').value)" class="bg-[#1A1A20] text-white px-3 py-2 rounded-lg text-xs font-bold hover:bg-white/10">Apply</button>
+                    </div>
+                  `}
+                  <div class="text-[10px] text-zinc-500 pt-1">Try codes: FESTIVE10, DIWALI15</div>
+                </div>
+              </div>
+            </div>
+          ` : `
+            <div class="p-12 text-center bg-[#121216] border border-white/10 rounded-2xl space-y-3">
+              <div class="text-3xl">🛍️</div>
+              <h2 class="text-lg font-bold text-white">Your Cart is Empty</h2>
+              <a href="#/shop" class="inline-block bg-[#F5C76A] text-[#09090B] font-bold text-xs px-5 py-2.5 rounded-xl">Start Shopping</a>
+            </div>
+          `}
+        </div>
+      `;
+    }
+
+    function renderCheckout(root) {
+      const cartItems = cart.map(i => ({ ...i, product: PRODUCTS.find(p => p.id === i.id) })).filter(i => Boolean(i.product));
+      if (cartItems.length === 0) {
+        root.innerHTML = `<div class="py-20 text-center"><h1 class="text-xl font-bold">Your Cart is Empty</h1><a href="#/shop" class="text-[#F5C76A] text-sm underline mt-2 block">Go to Shop</a></div>`;
+        return;
+      }
+      const subtotal = cartItems.reduce((sum, i) => sum + i.product.price * i.qty, 0);
+      let discount = 0;
+      if (appliedCoupon && COUPONS[appliedCoupon]) {
+        const c = COUPONS[appliedCoupon];
+        if (subtotal >= c.min) discount = c.type === 'percentage' ? Math.min((subtotal * c.value) / 100, c.max || 9999) : c.value;
+      }
+      const shipping = subtotal >= 999 ? 0 : 99;
+      const total = Math.max(0, subtotal - discount + shipping);
+
+      root.innerHTML = `
+        <div class="max-w-4xl mx-auto px-4 sm:px-8 py-8 space-y-6">
+          <h1 class="font-display text-2xl font-extrabold text-white">Simulated Demo Checkout</h1>
+          <div class="p-3 bg-[#1A1A20] border border-[#F5C76A]/40 rounded-xl text-xs text-zinc-300">
+            <strong>DEMO MODE:</strong> This order placement is fully simulated locally. No real payments or credit card numbers are collected.
+          </div>
+          <form onsubmit="handleDemoOrder(event, ${total})" class="space-y-4">
+            <div class="p-5 bg-[#121216] border border-white/10 rounded-2xl space-y-3 text-xs">
+              <h2 class="font-bold text-white text-sm">Delivery Address</h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <input required id="ch-name" type="text" placeholder="Full Name" class="bg-[#1A1A20] border border-white/10 text-white p-2.5 rounded-lg" />
+                <input required id="ch-phone" type="tel" placeholder="10-digit Phone" class="bg-[#1A1A20] border border-white/10 text-white p-2.5 rounded-lg" />
+                <input required id="ch-addr" type="text" placeholder="Address &amp; Street" class="sm:col-span-2 bg-[#1A1A20] border border-white/10 text-white p-2.5 rounded-lg" />
+                <input required id="ch-city" type="text" placeholder="City" class="bg-[#1A1A20] border border-white/10 text-white p-2.5 rounded-lg" />
+                <input required id="ch-pin" type="text" placeholder="6-digit PIN code" class="bg-[#1A1A20] border border-white/10 text-white p-2.5 rounded-lg" />
+              </div>
+            </div>
+
+            <div class="p-5 bg-[#121216] border border-white/10 rounded-2xl space-y-2 text-xs">
+              <h2 class="font-bold text-white text-sm">Payment Selection (Simulated)</h2>
+              <label class="flex items-center gap-2 text-white"><input type="radio" checked name="pay" class="accent-[#F5C76A]" /> UPI / Instant QR (Simulated)</label>
+              <label class="flex items-center gap-2 text-white"><input type="radio" name="pay" class="accent-[#F5C76A]" /> Cash on Delivery (COD)</label>
+            </div>
+
+            <div class="p-4 bg-[#141419] rounded-xl flex justify-between items-center text-sm font-bold">
+              <span>Payable Amount:</span>
+              <span class="text-[#F5C76A] text-lg">${formatINR(total)}</span>
+            </div>
+
+            <button type="submit" class="w-full bg-[#F5C76A] hover:bg-[#FFB547] text-[#09090B] font-black py-3.5 rounded-xl text-sm transition-all shadow-md">
+              CONFIRM DEMO ORDER &bull; ${formatINR(total)}
+            </button>
+          </form>
+        </div>
+      `;
+    }
+
+    window.handleDemoOrder = function(e, total) {
+      e.preventDefault();
+      const id = 'DD-2026-' + Math.floor(10000 + Math.random() * 90000);
+      const name = document.getElementById('ch-name').value;
+      const addr = document.getElementById('ch-addr').value;
+      const order = { id, name, address: addr, total, date: new Date().toISOString(), items: [...cart] };
+      orders.unshift(order);
+      cart = [];
+      appliedCoupon = null;
+      saveState();
+      window.location.hash = `#/order-success?orderId=${id}`;
+    };
+
+    function renderOrderSuccess(root, qs) {
+      const id = (qs && qs.match(/orderId=([^&]*)/)) ? qs.match(/orderId=([^&]*)/)[1] : (orders[0] ? orders[0].id : 'DD-2026-DEMO');
+      root.innerHTML = `
+        <div class="max-w-xl mx-auto px-4 py-16 text-center space-y-4">
+          <div class="text-5xl">🎉</div>
+          <div class="inline-block bg-[#F5C76A]/10 border border-[#F5C76A]/40 text-[#F5C76A] text-xs font-bold px-3 py-1 rounded-full uppercase">
+            Order Confirmed (Demo Simulation)
+          </div>
+          <h1 class="font-display text-3xl font-extrabold text-white">Thank You for Celebrating With Us!</h1>
+          <p class="text-xs text-zinc-400">Your Diwali celebration order is registered in local test mode.</p>
+          <div class="p-4 bg-[#121216] border border-white/10 rounded-xl font-mono text-sm text-[#F5C76A] font-bold">
+            Order ID: ${id}
+          </div>
+          <div class="flex justify-center gap-3 pt-2">
+            <a href="#/track-order?orderId=${id}" class="bg-[#F5C76A] text-[#09090B] font-bold text-xs px-5 py-2.5 rounded-xl">Track Shipment</a>
+            <a href="#/shop" class="bg-[#1A1A20] text-white text-xs font-semibold px-5 py-2.5 rounded-xl">Continue Shopping</a>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderTrackOrder(root, qs) {
+      const paramId = qs && qs.match(/orderId=([^&]*)/) ? qs.match(/orderId=([^&]*)/)[1] : '';
+      root.innerHTML = `
+        <div class="max-w-xl mx-auto px-4 sm:px-8 py-10 space-y-6">
+          <div class="text-center space-y-1">
+            <h1 class="font-display text-2xl font-black text-white">Track Your Festive Shipment</h1>
+            <p class="text-xs text-zinc-400">Enter Order ID to inspect live courier checkpoint status.</p>
+          </div>
+          <div class="flex gap-2">
+            <input id="track-input" type="text" value="${paramId || (orders[0] ? orders[0].id : 'DD-2026-12345')}" class="flex-1 bg-[#121216] border border-white/10 text-white p-2.5 rounded-xl text-xs" />
+            <button onclick="renderRoute()" class="bg-[#F5C76A] text-[#09090B] font-bold text-xs px-5 py-2.5 rounded-xl">Track</button>
+          </div>
+          <div class="p-5 bg-[#121216] border border-white/10 rounded-2xl space-y-4 text-xs">
+            <div class="font-bold text-[#F5C76A]">Shipment Status: IN TRANSIT (On Schedule)</div>
+            <div class="space-y-3 pl-4 border-l-2 border-[#F5C76A]/40">
+              <div><strong>Order Confirmed</strong> &bull; Verified</div>
+              <div><strong>Packed at Hub</strong> &bull; Moradabad Packaging Facility</div>
+              <div class="text-[#F5C76A] font-bold">● In Transit &bull; Dispatched via Diwali Express Air Cargo</div>
+              <div class="text-zinc-500">Out for Doorstep Delivery</div>
+              <div class="text-zinc-500">Delivered</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAbout(root) {
+      root.innerHTML = `
+        <div class="max-w-3xl mx-auto px-4 py-12 space-y-4 text-xs sm:text-sm text-zinc-300">
+          <h1 class="font-display text-3xl font-extrabold text-white">About Diwali Dhamaka</h1>
+          <p class="font-serif italic text-base text-[#F5C76A]">&ldquo;Light Up Your Celebrations. Unlock Extraordinary Deals.&rdquo;</p>
+          <p>Diwali Dhamaka connects indigenous artisan clusters with modern Indian households for auspicious celebrations. From pure bell-metal Moradabad brass urlis to Varanasi handloom silks, every offering celebrates authentic craftsmanship at transparent prices.</p>
+        </div>
+      `;
+    }
+
+    function renderContact(root) {
+      root.innerHTML = `
+        <div class="max-w-2xl mx-auto px-4 py-12 space-y-4 text-xs sm:text-sm">
+          <h1 class="font-display text-3xl font-extrabold text-white">Contact Festive Helpdesk</h1>
+          <div class="p-5 bg-[#121216] border border-white/10 rounded-2xl space-y-2">
+            <div><strong>Email:</strong> support@diwalidhamaka.demo</div>
+            <div><strong>Hotline:</strong> 1800-DIWALI-DEMO (9 AM &ndash; 9 PM IST)</div>
+            <div><strong>Hub:</strong> Plot 42, Udyog Vihar, Gurugram, India</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderFaq(root) {
+      root.innerHTML = `
+        <div class="max-w-3xl mx-auto px-4 py-12 space-y-4 text-xs sm:text-sm">
+          <h1 class="font-display text-3xl font-extrabold text-white">Frequently Asked Questions</h1>
+          <div class="space-y-3">
+            <div class="p-4 bg-[#121216] border border-white/10 rounded-xl">
+              <strong class="text-white block mb-1">When will my Diwali parcel arrive?</strong>
+              <p class="text-zinc-400">Metro deliveries arrive in 24 to 48 hours via Diwali Express Air shipping.</p>
+            </div>
+            <div class="p-4 bg-[#121216] border border-white/10 rounded-xl">
+              <strong class="text-white block mb-1">How do I get free shipping?</strong>
+              <p class="text-zinc-400">Orders above ₹999 qualify for 100% Free Express Festive Shipping automatically.</p>
+            </div>
+            <div class="p-4 bg-[#121216] border border-white/10 rounded-xl">
+              <strong class="text-white block mb-1">What coupon codes are active?</strong>
+              <p class="text-zinc-400">Use FESTIVE10 for 10% off (min ₹1,499) or DIWALI15 for 15% off (min ₹2,999).</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderShipping(root) {
+      root.innerHTML = `
+        <div class="max-w-3xl mx-auto px-4 py-12 space-y-4 text-xs sm:text-sm text-zinc-300">
+          <h1 class="font-display text-3xl font-extrabold text-white">Shipping Policy</h1>
+          <p>Orders are dispatched through priority air couriers. Fragile brass urlis and earthen diyas are packaged in drop-tested protective boxes. Free delivery applies on orders exceeding ₹999.</p>
+        </div>
+      `;
+    }
+
+    function renderReturns(root) {
+      root.innerHTML = `
+        <div class="max-w-3xl mx-auto px-4 py-12 space-y-4 text-xs sm:text-sm text-zinc-300">
+          <h1 class="font-display text-3xl font-extrabold text-white">Returns &amp; Refunds</h1>
+          <p>We provide a 7-day festive satisfaction window. Damaged or mismatched items are eligible for doorstep return pickup and prompt refund to the original payment method.</p>
+        </div>
+      `;
+    }
+
+    function renderPrivacy(root) {
+      root.innerHTML = `
+        <div class="max-w-3xl mx-auto px-4 py-12 space-y-4 text-xs sm:text-sm text-zinc-300">
+          <h1 class="font-display text-3xl font-extrabold text-white">Privacy Policy (Draft)</h1>
+          <p>All demo order data, cart items, and wishlist preferences are stored strictly in your browser's local storage.</p>
+        </div>
+      `;
+    }
+
+    function renderTerms(root) {
+      root.innerHTML = `
+        <div class="max-w-3xl mx-auto px-4 py-12 space-y-4 text-xs sm:text-sm text-zinc-300">
+          <h1 class="font-display text-3xl font-extrabold text-white">Terms of Service (Draft)</h1>
+          <p>Diwali Dhamaka operates as an interactive ecommerce demonstration. Product pricing and promotions are illustrative.</p>
+        </div>
+      `;
+    }
+
+    function renderNotFound(root) {
+      root.innerHTML = `
+        <div class="max-w-xl mx-auto px-4 py-20 text-center space-y-4">
+          <h1 class="font-display text-3xl font-black text-white">404 - Page Not Found</h1>
+          <p class="text-zinc-400 text-xs">The festive route you navigated to does not exist.</p>
+          <a href="#/" class="inline-block bg-[#F5C76A] text-[#09090B] font-bold text-xs px-5 py-2.5 rounded-xl">Return Home</a>
+        </div>
+      `;
+    }
+
+    window.addEventListener('hashchange', renderRoute);
+    window.addEventListener('DOMContentLoaded', renderRoute);
+    renderRoute();
+  </script>
+</body>
+</html>
