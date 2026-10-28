@@ -147,7 +147,7 @@ export const PRODUCTS: Product[] = [
     category: 'fashion',
     images: [
       'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1621644827050-b0409a259c6b?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=800&q=80',
     ],
     sellingPrice: 3899,
     originalPrice: 6499,
@@ -214,7 +214,7 @@ export const PRODUCTS: Product[] = [
     description: 'Elevate any plain kurta or solid shirt instantly. Crafted from rich jacquard brocade, this versatile bundi features double-welt pockets, smooth satin back lining, and an adjustable waist clasp.',
     category: 'fashion',
     images: [
-      'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?auto=format&fit=crop&w=800&q=80',
     ],
     sellingPrice: 1999,
     originalPrice: 3499,
@@ -398,7 +398,7 @@ export const PRODUCTS: Product[] = [
     category: 'gifts-hampers',
     images: [
       'https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&w=800&q=80',
-      'https://images.unsplash.com/photo-1508061252224-237ff54ed5a8?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=800&q=80',
     ],
     sellingPrice: 1699,
     originalPrice: 2899,
@@ -671,7 +671,7 @@ export const PRODUCTS: Product[] = [
     description: 'Craft intricate, symmetrical festive floor art in seconds. Safe for children and pets, non-staining, and sweeps off clean with water after festivities conclude.',
     category: 'essentials',
     images: [
-      'https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?auto=format&fit=crop&w=800&q=80',
     ],
     sellingPrice: 449,
     originalPrice: 799,
