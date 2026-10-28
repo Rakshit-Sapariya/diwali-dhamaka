@@ -4,5 +4,6 @@ dist-ssr
 *.local
 .env
 .env.*
+.render_config.json
 .DS_Store
 Thumbs.db
